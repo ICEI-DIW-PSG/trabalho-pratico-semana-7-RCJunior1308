@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Obra</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="container my-5">
+        <div id="detalhes-obra" class="bg-white p-4 rounded shadow">
+        </div>
+        <div class="mt-4">
+            <a href="./index.html" class="btn btn-primary">Voltar</a>
+        </div>
+    </main>
+
+    <script src="obras.js"></script>
+    <script src="app.js"></script>
+    <script>
+        console.log("Obras carregadas:", obras);
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+
+            const obra = obras.find(o => o.id == id);
+
+            const container = document.getElementById('detalhes-obra');
+
+            if (obra) {
+                container.innerHTML = `
+                    <h2 class="text-primary mb-3 text-center">${obra.titulo}</h2>
+                    <img src="${obra.imagem}" alt="${obra.titulo}" class="img-fluid rounded mb-3">
+                    <p><strong>Ano:</strong> ${obra.ano}</p>
+                    <p>${obra.descricao}</p>
+                `;
+            } else {
+                container.innerHTML = `<p class="text-danger">Obra não encontrada!</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
